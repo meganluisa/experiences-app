@@ -11,28 +11,15 @@ router.get('/', (req, res) => {
   res.send('Welcome to the photo album map!');
 })
 
-
-
-// Using callbacks
-router.get('/callback', (req, res) => {
-    let url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?limit=1&access_token=pk.eyJ1IjoibWVnYW4tbHVpc2EiLCJhIjoiY2t2bGRocTBqYzJlbTJ2dDlidW1ycjk3eSJ9.Fd49RGr42afMbItMs5bfkg'
-    request(url, (err, response, body)=> {  
-      res.send(response);     
-      console.log('request done');
-    });   
-    
-})
-
-// Using async await
-const requestPromise = util.promisify(request);
-
-router.get('/async', async (req, res) => {
-  let url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?limit=1&access_token=pk.eyJ1IjoibWVnYW4tbHVpc2EiLCJhIjoiY2t2bGRocTBqYzJlbTJ2dDlidW1ycjk3eSJ9.Fd49RGr42afMbItMs5bfkg'
-  let resource = await requestPromise(url)
-  //console.log(resource);
-  res.send(resource); 
-  console.log('geocode req done')
-})
+// router.get('/api/image/:name', async (req, res) => {
+//   let image = await Photo.find({ name: req.params.name});
+//   console.log(image)
+//   if (image) {
+//     res.render(image.name) 
+//   } else {
+//     res.redirect('/');
+//   }
+// });
 
 //Display map route
 router.get('/map', (req, res) => {
@@ -80,9 +67,11 @@ function checkFileType(file, cb){
 }
 
 router.post('/photos', upload, async (req, res, next)=> {
+  const url = req.protocol + '://' + req.get('host')
   console.log(req.file);
   let photo = new Photo({
-    photoPath: req.file.path
+    name: req.file.originalname,
+    photoPath: url + '/public/images/' + req.file.filename
   })
 
   try {
