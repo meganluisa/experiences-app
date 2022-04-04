@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#info {
+  display: table;
+  position: relative;
+  margin: 0 auto;
+  word-wrap: anywhere;
+  white-space: pre-wrap;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 12px;
+  text-align: center;
+  color: #222;
+  background: #fff;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  height: 650px;
+  padding: 20px;
+}
+
+.flex-child {
+  flex: 1;
+  margin-right: 20px;
+}

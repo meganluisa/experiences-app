@@ -7,11 +7,18 @@ const routes = require('./routes/routes.js')
 const express = require('express');
 // const { Db } = require('mongodb');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 
 const app = express();
 const port = 3000;
 
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use('/', routes);
 app.use('/callback', routes);
 app.use('/async', routes);

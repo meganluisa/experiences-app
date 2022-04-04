@@ -1,3 +1,4 @@
 /experiences-app-frontend/node_modules
 /experiences-app-backend/node_modules
 /experiences-app-backend/.env
+/experiences-app-backend/public
