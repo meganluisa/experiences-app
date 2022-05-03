@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const photoSchema = new mongoose.Schema({
+    id: {
+      type:String,
+      required: true
+    },
     name: {
       type:String,
       required: true
@@ -8,6 +12,10 @@ const photoSchema = new mongoose.Schema({
     photoPath: {
       type:String,
       required: true
+    },
+    photo: {
+      data:Buffer,
+      contentType:String
     },
     timeCreated: {
       type:Date,

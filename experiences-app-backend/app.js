@@ -24,7 +24,7 @@ app.use('/callback', routes);
 app.use('/async', routes);
 app.use('/map', routes);
 app.use('/photos', routes)
-app.use(express.static('static'));
+app.use(express.static('public/images'));
 
 // Connect to mongodb database using mongoose
 mongoose.connect(process.env.DATABASE_URL);

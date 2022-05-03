@@ -1,31 +1,36 @@
-body {
-  margin: 0;
-  padding: 0;
+
+p {
+  margin-left: 2vw;
 }
 
-#info {
-  display: table;
-  position: relative;
-  margin: 0 auto;
-  word-wrap: anywhere;
-  white-space: pre-wrap;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  font-size: 12px;
-  text-align: center;
-  color: #222;
-  background: #fff;
-}
-
-.flex-container {
-  display: flex;
-  flex-direction: row;
-  height: 650px;
+.map-container {
+  height: 500px;
   padding: 20px;
 }
 
-.flex-child {
-  flex: 1;
-  margin-right: 20px;
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 50px;
+  box-shadow: 0 1px 8px #ddd;
+  background-color: rgb(128, 209, 189);
+}
+
+header li {
+  list-style: none;
+  display: inline-block;
+  padding: 0 20px;
+}
+
+header a {
+  text-decoration: none;
+  color: #555;
+  transition: all 0.3s ease 0s;
+}
+
+form {
+  display: block;
+  margin-left : 2vw;
+  text-align: left;
 }

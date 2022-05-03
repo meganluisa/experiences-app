@@ -6,20 +6,32 @@ const multer  = require('multer')
 const request = require('request');
 const router = express.Router()
 const Photo = require('../models/photo')
+const { v4: uuidv4 } = require('uuid');
 
 router.get('/', (req, res) => {
   res.send('Welcome to the photo album map!');
 })
 
-// router.get('/api/image/:name', async (req, res) => {
-//   let image = await Photo.find({ name: req.params.name});
-//   console.log(image)
-//   if (image) {
-//     res.render(image.name) 
-//   } else {
-//     res.redirect('/');
-//   }
+// router.get('/api/images/:id', async (req, res) => {
+// console.log(req.params.id);
+// const img = await Photo.find({id: req.params.id})
+// // res.contentType(img.photo.contentType);
+// // res.send(img.photo.data);
+// res.contentType(img[0].photo.contentType);
+// res.send(img[0].photo.data);
+
 // });
+
+function getImages(req, res) {
+   //console.log(req.params.id);
+  const img= await Photo.find({})
+    // res.contentType(img.photo.contentType);
+    // res.send(img.photo.data);
+  res.contentType(img[0].photo.contentType);
+  res.send(img[0].photo.data);
+}
+
+router.get('/api/images', getImages);
 
 //Display map route
 router.get('/map', (req, res) => {
@@ -29,10 +41,10 @@ router.get('/map', (req, res) => {
   res.sendFile(fileName, options);
 })
 
-router.get('/photos', (req, res) => {
-  const options = {root: path.join()};
-  res.sendFile('photo-upload.html', options)
-})
+// router.get('/photos', (req, res) => {
+//   const options = {root: path.join()};
+//   res.sendFile('photo-upload.html', options)
+// })
 
 // Upload photo route
 
@@ -48,10 +60,10 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {fileSize: 1000000},
-  fileFilter: function(req, file, cb){
-    checkFileType(file, cb);
-  }
-}).single('photo')
+  // fileFilter: function(req, file, cb){
+  //   checkFileType(file, cb);
+  // }
+});
 
 // Check file type
 function checkFileType(file, cb){
@@ -66,16 +78,22 @@ function checkFileType(file, cb){
   }
 }
 
-router.post('/photos', upload, async (req, res, next)=> {
+router.post('/photos', upload.fields([{name: 'photo'}]), async (req, res, next)=> {
   const url = req.protocol + '://' + req.get('host')
-  console.log(req.file);
+  console.log(req.files.photo[0]);
+  let singlePhoto = req.files.photo[0];
   let photo = new Photo({
-    name: req.file.originalname,
-    photoPath: url + '/public/images/' + req.file.filename
+    id: uuidv4.v4(),
+    name: singlePhoto.originalname,
+    photoPath: url + '/public/images/' + singlePhoto.filename,
+    photo: {
+      data: fs.readFileSync('./public/images/' + singlePhoto.filename),
+      contentType: 'image/png'    
+    }
   })
 
   try {
-    photo = await photo.save();
+    photo = await Photo.create(photo)
     res.send(photo)
   } catch(err){
     next(err)
