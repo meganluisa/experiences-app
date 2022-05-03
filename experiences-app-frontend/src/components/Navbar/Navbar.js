@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
 import { MenuItems } from "./MenuItems"
-import './Navbar.css'
 import { BrowserRouter as Router, Routes, Link, Route } from "react-router-dom";
 
-class Navbar extends Component {
+function Navbar() {
 
-
-
-  render(){
     return(
-      <Router>
-      <nav className="NavbarItems">
-        <h1 className="navbar-logo">React</h1>
-        <div className="menu-icon"></div>
-        
-        <ul className="nav-menu">
-
+      <header>
+      <nav>
+        <h1>Experiences App</h1>
+        <ul>
           {MenuItems.map((item, index) => {
             return(
               <li key={index}>
-                <Link className={item.cName} to={item.url}>{item.title}</Link>
+                <Link to={item.url}>{item.title}</Link>
               </li>
             )
           })}
@@ -27,9 +20,10 @@ class Navbar extends Component {
         </ul>
 
       </nav>
-      </Router>
+      </header>
+
     )
-  }
+
 }
 
 export default Navbar
