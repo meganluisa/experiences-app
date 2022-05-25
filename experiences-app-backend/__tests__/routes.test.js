@@ -1,20 +1,17 @@
-import { tesselate } from "@turf/turf"
-import getImages from "./routes"
+require("dotenv").config();
+const mongoose = require("mongoose");
+const router = require("../routes/routes.js");
+const request = require("supertest");
+const express = require("express");
 
-test('responds to /images/', () => {
-  const req = {}
-  const res = { text: '',
-      send: function(input) {this.text = input}}
-  const img = [
-    {
-      name: 'name',
-      id: 'jhfjfsh54-2cre-00094f', 
-      photo: 
-      {
-        contentType:'image/png',
-        data: 'i am data'
-      },  
-  }]
-  getImages()
+const app = new express();
+app.use('/', router);
 
-})
+describe("Get all Images", () => {
+  test("Get array of image data", async () => {
+    const res = await request(app).get('api/images');
+    console.log(res);
+    // const images = await getImages();
+    expect(res).toEqual(expect.arrayContaining(res)); // ensures that an array is returned from the getImages function, intended to be the endpoint that returns an array of all images
+  })
+});

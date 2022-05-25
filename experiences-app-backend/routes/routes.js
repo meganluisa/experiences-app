@@ -12,26 +12,29 @@ router.get('/', (req, res) => {
   res.send('Welcome to the photo album map!');
 })
 
-// router.get('/api/images/:id', async (req, res) => {
-// console.log(req.params.id);
-// const img = await Photo.find({id: req.params.id})
-// // res.contentType(img.photo.contentType);
-// // res.send(img.photo.data);
-// res.contentType(img[0].photo.contentType);
-// res.send(img[0].photo.data);
-
-// });
-
-function getImages(req, res) {
-   //console.log(req.params.id);
-  const img= await Photo.find({})
-    // res.contentType(img.photo.contentType);
-    // res.send(img.photo.data);
+router.get('/api/images/:id', async (req, res) => {
+  console.log(req.params.id);
+  const img = await Photo.find({id: req.params.id})
+  // res.contentType(img.photo.contentType);
+  // res.send(img.photo.data);
   res.contentType(img[0].photo.contentType);
   res.send(img[0].photo.data);
+  });
+
+async function getImages(req, res) {
+   //console.log(req.params.id);
+  const imgs = await Photo.find({}, 'id name coordinates')
+  console.log(imgs);
+  res.send(imgs);
+    // res.contentType(img.photo.contentType);
+    // res.send(img.photo.data);
+  //res.contentType(img[0].photo.contentType);
+  //res.send(img[0].photo.data);
 }
 
 router.get('/api/images', getImages);
+
+
 
 //Display map route
 router.get('/map', (req, res) => {
