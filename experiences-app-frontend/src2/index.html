@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Display a map on a webpage</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="index.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      mapboxgl.accessToken = "pk.eyJ1IjoibWVnYW5sdWlzYSIsImEiOiJjanljNWxiaGQwZnluM2NsZG1wZ3Q3dHRsIn0.St7BhCiZXPL78pfxYA79YQ"
+
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [
+          -77.0353, 38.8895
+        ],
+        zoom: 12
+      });
+      map.on('load', () => {
+
+        map.on('click', async function getData() {
+          const response = await axios.get('http://localhost:3000/api/images/')
+          console.log(response.data);
+
+          for (const feature of response.data) {
+            const el = document.createElement('div');
+            el.className = 'marker';
+            new mapboxgl.Marker(el).setLngLat(feature.coordinates).setPopup(new mapboxgl.Popup().setHTML('<img style="width:200px;height:250px;" src="http://localhost:3000/api/images/' + feature.id + '">')).addTo(map);
+
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
