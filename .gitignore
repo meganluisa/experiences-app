@@ -2,3 +2,4 @@
 /experiences-app-backend/node_modules
 /experiences-app-backend/.env
 /experiences-app-backend/public
+.DS_Store
