@@ -5,8 +5,7 @@ body {
 
 #map {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  height: 60%;
   width: 100%;
 }
 
@@ -24,4 +23,11 @@ body {
   min-height: 200;
   max-height: 300;
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  }
+
+  form {
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+    height: 40%;
   }

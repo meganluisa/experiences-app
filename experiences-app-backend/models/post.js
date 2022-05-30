@@ -5,13 +5,14 @@ const postSchema = new mongoose.Schema({
     type:String,
     default:"Untitled"
   },
+  body: {
+    type:String
+  },
   coordinates: {
-    type:Double,
+    type:Array,
     required:true
   },
-  description: {
-    type:String
-  }
+  photo: [{type: mongoose.Schema.Types.ObjectId, ref: 'Photo'}]
 })
 
 module.exports = mongoose.model('Post', postSchema)

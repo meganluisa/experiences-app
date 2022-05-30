@@ -12,6 +12,20 @@
   <body>
     <div id="map"></div>
 
+    <form action="http://localhost:3000/photos" method="post" enctype="multipart/form-data">
+      <label for="title">Title</label><br>
+      <input type="text" id="title" name="title"><br>
+      <label for="body">Body:</label><br>
+      <input type="text" id="body" name="body"><br>
+      <label for="longitude">Longitude:</label><br>
+      <input type="text" id="longitude" name="longitude"><br>
+      <label for="latitude">Latitude:</label><br>
+      <input type="text" id="latitude" name="latitude"><br>
+      <label for="photo">Photo:</label><br>
+      <input type="file" id="photo" name="photo" accept=".jpg, .jpeg, .png"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+
     <script>
       mapboxgl.accessToken = "pk.eyJ1IjoibWVnYW5sdWlzYSIsImEiOiJjanljNWxiaGQwZnluM2NsZG1wZ3Q3dHRsIn0.St7BhCiZXPL78pfxYA79YQ"
 

@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest __tests__/"
+    "test": "jest __tests__/",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.0",
+    "eslint": "^8.16.0",
     "supertest": "^6.2.3"
   }
 }
